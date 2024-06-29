@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ APP</title>
+    <style>
+        /* Your CSS styles */
+        div[type="background"] {
+            border: 3px solid rgb(252, 226, 188);
+            width: 750px;
+            text-align: center;
+            margin-left: 240px;
+            margin-top: 30px;
+            height: 470px;
+            padding-top: 25px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: #353535c8;;
+            font-size: x-large;
+            border-radius: 15px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto; 
+            width: 100px;
+            height: 100px;
+        }
+
+        .heading {
+            text-align: center;
+            color: rgb(22, 210, 243);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: xx-large;
+        }
+
+        .select {
+            text-align: center;
+            color: rgb(22, 210, 243);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: x-large;
+        }
+
+        .enter-name, .secondstoanswer {
+            text-align: center;
+            font-family: inherit;
+            font-size: 13px;
+            margin-left: -40px;
+        }
+
+        .input-container {
+            display: flex;
+        }
+
+        .input-container input[type="text"] {
+            flex-grow: 0.3;
+            margin-right: 12px;
+            margin-left: 160px;
+            border-radius: 6px;
+            width: 290px;
+            height: 20px;
+            border-color: rgba(0, 0, 0, 0.135);
+        }
+
+        .input-container button[type="button"] {
+            border-radius: 6px;
+            color: white;
+            background-color: rgb(18, 220, 255);
+            border-color: rgba(255, 0, 0, 0.135);
+            width: 70px;
+            height: 25px;
+        }
+
+        .container button[type="button"] {
+            text-align: center;
+            margin-left: 20px;
+            border-radius: 8px;
+            background-color: rgb(197, 255, 255);
+            height: 40px;
+            width: 250px;
+            color: rgb(24, 24, 24);
+            border-color: rgb(0, 217, 255);
+            margin-bottom: 20px;
+            margin-right: 0px;
+            font-size: large;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div type="background">
+        <img src="testbook-pass.webp" alt="Example Image" class="logo"> 
+        <h1 class="heading">Hello user!</h1>
+        <h3 class="enter-name">Enter your name to continue the quiz</h3>
+
+        <form id="nameForm">
+            <div class="input-container">
+                <input type="text" id="username" name="name" placeholder="ENTER YOUR NAME">
+                <button type="button" id="start-btn">ENTER</button>
+            </div>
+        </form>
+        <p class="secondstoanswer">You have 10 seconds to answer each question</p>
+
+        <h1 class="select">SELECT CATEGORY</h1>
+        
+        <div class="container">
+            <button id="History" type="button" onclick="selectCategory('History')">History</button>
+            <button id="Science" type="button" onclick="selectCategory('Science')">Science</button>
+            <br>
+            <button id="Geography" type="button" onclick="selectCategory('Geography')">Geography</button>
+            <button id="Maths" type="button" onclick="selectCategory('Maths')">Maths</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', function() {
+            const username = document.getElementById('username').value.trim();
+            if (username !== '') {
+                // Store username in localStorage for use in quiz page
+                localStorage.setItem('username', username);
+            } else {
+                alert('Please enter your name to start the quiz.');
+            }
+        });
+
+        function selectCategory(category) {
+            const username = localStorage.getItem('username');
+            if (username) {
+                // Redirect to the respective category page
+                switch (category) {
+                    case 'History':
+                        window.location.href = 'History.html';
+                        break;
+                    case 'Science':
+                        window.location.href = 'Science.html';
+                        break;
+                    case 'Geography':
+                        window.location.href = 'Geography.html';
+                        break;
+                    case 'Maths':
+                        window.location.href = 'Maths.html';
+                        break;
+                    default:
+                        // Handle unexpected category names
+                        alert('Invalid category selected.');
+                }
+            } else {
+                alert('Please enter your name first.');
+            }
+        }
+    </script>
+</body>
+</html>

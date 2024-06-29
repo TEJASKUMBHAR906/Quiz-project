@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz App - Quiz</title>
+
+<style>
+
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    
+  }
+  .quiz-container {
+    border: 0;
+        width: 750px;
+        text-align: center;
+        margin-left: 240px;
+        margin-top: 35px;
+        height: 450px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #00cbdd;
+        font-size: 30px;
+        padding-top: 40px;
+        border-radius: 15px;
+        font-weight: bold;
+        box-shadow: 0px 0px 4px #7c7c7c;      
+  }
+
+  #question{
+    font-size:18px;
+    color: #454545;
+
+
+  }
+
+  div[type="box"]{
+    border: 2px solid  #00cbdd;
+    width: 17cm;
+    text-align: center;
+    margin-left: 47px;
+    margin-top :35px;
+    height: 100px;
+    padding-top: 45px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #353535c8;;
+    font-size: x-large;
+    border-radius: 15px;
+    font-size: large;
+}
+
+  .options button {
+    width: 8cm;
+    height: 40px;
+    border-radius: 40px;
+    background:rgb(216, 216, 216);
+    color:rgba(0, 0, 0, 0.664);
+    transition: all 0.3s;
+    margin-right:20px ;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    font-size: large;
+    font-weight: bold;
+    border-color: rgb(0, 0, 0);
+    gap: 20px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  }
+
+  .options button:hover {
+    background-color:rgb(20, 212, 255);
+    color: #fff;
+  }
+  
+
+  #time {
+    font-size: 25px;
+    margin-left: -620PX;
+    color: #00cbdd;
+    margin-top: -44px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  span{
+    margin-right: -450px;
+    margin-top: 20cm;
+    font-size: 25px;
+}
+
+  #results {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    display: none;
+  }
+
+  h2{
+    color: #00b8eb;
+  }
+
+  p{
+    color: #646464;
+    font-size: large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+ a{
+        color: black;
+        font-weight: bold;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+.circle{
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 90%; /* This makes it a circle */
+    border:2px solid  #00cbdd;
+    margin-top: -80px;
+    margin-left: 40px;
+}
+.questionnumber{
+    font-size: 20px;
+    margin-left: -10PX;
+    color: #00cbdd;
+    margin-top: -60px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 25px;
+
+}
+.quiz{
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 90%; /* This makes it a circle */
+    border:2px solid  #00cbdd;
+    margin-top: -70px;
+    margin-left: 290px;
+    margin-bottom: 20px;
+}
+
+#next-btn{
+    display: grid;
+    font-size:large;
+    border-radius: 25px;
+    background-color:rgb(216, 216, 216);
+    color:rgb(0, 0, 0);
+    outline: none;
+    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    padding-top: 5px;
+    padding-left: 15px;
+    margin-left: 270px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 15px;
+    transition: all 0.3s;
+    
+}
+
+#next-btn:hover{
+    background-color: rgb(20, 212, 255) ;
+    color:white;
+}
+
+#results-container{
+    border: 0;
+    width: 750px;
+    text-align: center;
+    margin-left: 240px;
+    margin-top: 35px;
+    height: 450px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #00cbdd;
+    font-size: 30px;
+    padding-top: 40px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0px 0px 4px #7c7c7c;      
+
+
+}
+#results-container h2{
+    margin-top: -10px;
+}
+
+#results-container p{
+    font-size: 20px;
+    font-weight: lighter;
+    margin-top: -5px;
+}
+.button{
+  display: inline-block;
+            padding: 10px 20px;
+            background-color: #00b8eb;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 120px;
+            font-weight: bold;
+            
+}
+.button:hover{
+  background-color:black;
+  color:#00b8eb;
+}
+
+</style>
+</head>
+<body>
+
+<div class="quiz-container">History<p><span id="score">SCORE:0</span></p>
+    <div class="circle"></div>
+    <div id="time">10</div>
+    <Div type="box">
+    <div class="quiz"></div>
+  <div class="questionnumber" id="question-number">1/10</div>
+  <div id="question"></div>
+</Div>
+  <div class="options" id="options-container">
+  </div>
+  <button id="next-btn">Next Question</button>
+  <div id="results"></div>
+</div>
+
+<div id="results-container" style="display: none;">
+  <h2>Quiz Result</h2>
+  <p><a id="username"></a> your result is:</p>
+  <p>Total Time Taken: <a id="totalTimeTaken"></a> seconds</p>
+  <p>Total Questions: <a id="totalQuestions"></a></p>
+  <p>Attempted Questions: <a id="attemptedQuestions"></a></p>
+  <p>Correct Answers: <a id="totalCorrect"></a></p>
+  <p>Wrong Answers: <a id="totalWrong"></a></p>
+  <p>Percentage: <a id="percentageCorrect"></a>%</p>
+  <button class="button" onclick="startAgain()">Start Again</button>
+  <button class="button" onclick="goToHome()">Go to Home</button>
+</div>
+
+<script>
+const quizData = [
+  {
+    question: "Who among the following ruler was defeated by Seleucus?",
+    options: ["Chandra Gupta Maurya", "Vikramaditya", "Chanakya", "None of the above"],
+    answer: "Chandra Gupta Maurya"
+  },
+  {
+    question: "Who wrote Bande Mataram?",
+    options: ["Rabindranath Tagore", " Bankimchandra Chatterjee", "Sharat chandra chattopadhyay", "None of the above"],
+    answer: " Bankimchandra Chatterjee"
+  },
+  {
+    question: "Where did ‘Tebhega’ movement occur in 1946?",
+    options: ["Maharashtra", "Tamil Nadu", "Karnataka", "Bengal"],
+    answer: "Bengal"
+  },
+  {
+    question: "Where is situated the battlefield of Plessey?",
+    options: ["Punjab", "Haryana", "West Bengal", "Karnataka"],
+    answer: "West Bengal"
+  },
+  {
+    question: "In the third battle of Panipat, who defeated Marathas?",
+    options: ["Afghans", "Mughals", "British Army", "None of the Above"],
+    answer: "Afghans"
+  },
+  {
+    question: "What was the name of Harsha’s Capital?",
+    options: ["Kannaauj", "Kanpur", "Lucknow", "Gaya"],
+    answer: "Kannaauj"
+  },
+  {
+    question: "What was the name of the Chinese pilgrim who visited during the reign of Harshavardhana?",
+    options: ["Fahein", "Hiuen Tsang", "Hikaru", "None of the Above"],
+    answer: "Hiuen Tsang"
+  },
+  {
+    question: "Where did the formation of Azad Hind Fauj take Place?",
+    options: ["Thailand", "Singapore", "Russia", "Germany"],
+    answer: "Singapore"
+  },
+  {
+    question: "Who was the first emperor of the Maurya Empire?",
+    options: ["Chandragupta Maurya", "Ashoka the Great", "Samudragupta", "Harsha"],
+    answer: "Chandragupta Maurya"
+  },
+  {
+    question: "The Mughal Empire reached its peak under the rule of which emperor? ",
+    options: ["Babur", "Akbar", "Shah Jahan", "Aurangzeb"],
+    answer: "Akbar"
+  },
+  // Add more questions here
+];
+
+const questionTimeLimit = 10; // Time limit per question in seconds
+
+let currentQuestion = 0;
+let score = 0;
+let totalCorrect = 0;
+let totalWrong = 0; // Total number of wrong answers
+let totalQuestions = quizData.length; // Total number of questions
+let totalTimeTaken = 0;
+let timeLeft = questionTimeLimit;
+let timerInterval;
+let username = '';
+let attemptedQuestions = 0;
+
+const questionElement = document.getElementById('question');
+const optionsContainer = document.getElementById('options-container');
+const scoreElement = document.getElementById('score');
+const nextButton = document.getElementById('next-btn');
+const timerElement = document.getElementById('time');
+const resultsElement = document.getElementById('results');
+
+// Retrieve username from localStorage
+if (localStorage.getItem('username')) {
+  username = localStorage.getItem('username');
+} else {
+  // Redirect back to homepage if username is not found (safety check)
+  window.location.href = 'index.html';
+}
+
+function startTimer() {
+  timeLeft = questionTimeLimit;
+  timerElement.textContent = timeLeft;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerElement.textContent = timeLeft;
+
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      handleTimeOut();
+    }
+  }, 1000); // Update every second
+}
+
+function loadQuestion() {
+    const currentQuizData = quizData[currentQuestion];
+    questionElement.textContent = currentQuizData.question;
+    optionsContainer.innerHTML = '';
+
+    // Update question number dynamically
+    document.getElementById('question-number').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+
+    currentQuizData.options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option-btn');
+        button.addEventListener('click', checkAnswer);
+        optionsContainer.appendChild(button);
+    });
+
+    startTimer();
+}
+
+
+function checkAnswer(event) {
+  const selectedOption = event.target.textContent;
+  const correctAnswer = quizData[currentQuestion].answer;
+
+  clearInterval(timerInterval); // Stop the timer
+  attemptedQuestions++; // Increment attempted questions
+
+  if (selectedOption === correctAnswer) {
+    score++;
+    totalCorrect++;
+  } else {
+    totalWrong++;
+  }
+
+  scoreElement.textContent = `SCORE: ${score}`;
+  totalTimeTaken += (questionTimeLimit - timeLeft); // Calculate time taken for this question
+
+  nextQuestion();
+}
+
+function handleTimeOut() {
+  totalWrong++;
+  scoreElement.textContent = `SCORE: ${score}`;
+  totalTimeTaken += questionTimeLimit; // Maximum time taken for timeout
+
+  nextQuestion();
+}
+
+function nextQuestion() {
+  currentQuestion++;
+
+  if (currentQuestion < quizData.length) {
+    loadQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  clearInterval(timerInterval); // Stop any ongoing timer
+  questionElement.textContent = ''; // Clear question text
+  optionsContainer.innerHTML = ''; // Clear options
+  nextButton.style.display = 'none'; // Hide next button
+  scoreElement.style.display = 'none'; // Hide score element
+  timerElement.style.display = 'none'; // Hide timer element
+
+  const percentageCorrect = ((totalCorrect / totalQuestions) * 100).toFixed(2);
+  const percentageWrong = ((totalWrong / totalQuestions) * 100).toFixed(2);
+  const averageTimeTaken = (totalTimeTaken / totalQuestions).toFixed(2);
+
+  resultsElement.innerHTML = `
+    <h2>Quiz Result</h2>
+    <p><a>${username}</a> Your result is:</p>
+    <p>Total Time Taken:<a> ${averageTimeTaken}</a> seconds</p>
+    <p>Total Questions: <a>${totalQuestions}</a></p>
+    <p>Attempt:<a> ${attemptedQuestions}</a></p>
+    <p>Correct: <a>${totalCorrect}</a></p>
+    <p>Wrong :<a>${totalWrong}</a></p>
+    <p>Percentage: <a>${percentageCorrect}%</a></p>
+     <button class="button" onclick="startAgain()">Start Again</button>
+     <button class="button" onclick="goToHome()">Go to Home</button>
+  `;
+  resultsElement.style.display = 'block';
+}
+
+loadQuestion();
+
+nextButton.addEventListener('click', nextQuestion);
+
+const resultsContainer = document.getElementById('results-container');
+
+// Retrieve username from localStorage
+if (localStorage.getItem('username')) {
+    username = localStorage.getItem('username');
+} else {
+    // Redirect back to homepage if username is not found (safety check)
+    window.location.href = 'index.html';
+}
+
+function startTimer() {
+    timeLeft = questionTimeLimit;
+    timerElement.textContent = timeLeft;
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+
+        if (timeLeft === 0) {
+            clearInterval(timerInterval);
+            handleTimeOut();
+        }
+    }, 1000); // Update every second
+}
+
+function loadQuestion() {
+    const currentQuizData = quizData[currentQuestion];
+    questionElement.textContent = currentQuizData.question;
+    optionsContainer.innerHTML = '';
+
+    // Update question number dynamically
+    document.getElementById('question-number').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+
+    currentQuizData.options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option-btn');
+        button.addEventListener('click', checkAnswer);
+        optionsContainer.appendChild(button);
+    });
+
+    startTimer();
+}
+
+
+function checkAnswer(event) {
+    const selectedOption = event.target.textContent;
+    const correctAnswer = quizData[currentQuestion].answer;
+
+    clearInterval(timerInterval); // Stop the timer
+    attemptedQuestions++; // Increment attempted questions
+
+    if (selectedOption === correctAnswer) {
+        score++;
+        totalCorrect++;
+    } else {
+        totalWrong++;
+    }
+
+    scoreElement.textContent = `SCORE: ${score}`;
+    totalTimeTaken += (questionTimeLimit - timeLeft); // Calculate time taken for this question
+
+    nextQuestion();
+}
+
+function handleTimeOut() {
+    totalWrong++;
+    scoreElement.textContent = `SCORE: ${score}`;
+    totalTimeTaken += questionTimeLimit; // Maximum time taken for timeout
+
+    nextQuestion();
+}
+
+function nextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    clearInterval(timerInterval); // Stop any ongoing timer
+    document.querySelector('.quiz-container').style.display = 'none';
+    nextButton.style.display = 'none';
+    resultsContainer.style.display = 'block';
+
+    const percentageCorrect = ((totalCorrect / totalQuestions) * 100).toFixed(2);
+    const averageTimeTaken = (totalTimeTaken / totalQuestions).toFixed(2);
+
+    document.getElementById('username').textContent = username;
+    document.getElementById('totalTimeTaken').textContent = averageTimeTaken;
+    document.getElementById('totalQuestions').textContent = totalQuestions;
+    document.getElementById('attemptedQuestions').textContent = attemptedQuestions;
+    document.getElementById('totalCorrect').textContent = totalCorrect;
+    document.getElementById('totalWrong').textContent = totalWrong;
+    document.getElementById('percentageCorrect').textContent = percentageCorrect;
+}
+
+function startAgain() {
+    window.location.reload(); // Reload the page to start again
+}
+
+function goToHome() {
+    window.location.href = 'Homepage.html'; // Redirect to homepage
+}
+
+loadQuestion();
+
+nextButton.addEventListener('click', nextQuestion);
+</script>
+
+</body>
+</html>
